@@ -211,19 +211,6 @@ with st.sidebar:
 if st.session_state.phase == "landing":
 
     st.markdown("""
-    <div class='hero'>
-      <div style='font-size:44px;margin-bottom:10px'>🛡️</div>
-      <h1 style='color:#F1F5F9;font-size:30px;font-weight:800;margin:0 0 8px;letter-spacing:-0.5px'>
-        PrivacyScope AI
-      </h1>
-      <p style='color:#94A3B8;font-size:14px;margin:0 0 14px;line-height:1.6'>
-        Enter an organisation name → AI identifies sector-specific options →<br>
-        Download a <b style='color:#F1F5F9'>professional Word document</b>
-        with clickable checkboxes, Aptos font &amp; Protiviti branding
-      </p>
-      <span class='badge'>✓ Free · Groq (Llama 3.3)</span>&nbsp;&nbsp;
-      <span class='badge-blue'>✓ Clickable Checkboxes · Aptos 11pt · Professional Template</span>
-    </div>
     """, unsafe_allow_html=True)
 
     c1, c2, c3, c4 = st.columns(4)
