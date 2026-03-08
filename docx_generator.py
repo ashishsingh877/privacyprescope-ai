@@ -438,9 +438,9 @@ def add_hdr_ftr(doc, org_name):
         t=OxmlElement("w:t"); t.text=text; t.set(XML_SPC,"preserve"); r.append(t)
         return r
 
-    p.append(make_run("PROTIVITI INDIA MEMBER FIRM  |  Data Privacy Team", bold=True))
+    p.append(make_run("PROTIVITI INDIA MEMBER FIRM | Data Privacy Team", bold=True))
     rt=OxmlElement("w:r"); tt=OxmlElement("w:tab"); rt.append(tt); p.append(rt)
-    p.append(make_run(f"Pre-Scoping Privacy Questionnaire  |  {org_name}", color="B0C4DE"))
+    p.append(make_run(f"Pre-Scoping Privacy Questionnaire | {org_name}", color="B0C4DE"))
     he.append(p)
 
     # ── Footer ───────────────────────────────────────────────
@@ -466,8 +466,8 @@ def add_hdr_ftr(doc, org_name):
     fcl=OxmlElement("w:color"); fcl.set(qn("w:val"),C_TEXT_MID.lstrip("#")); frPr.append(fcl)
     fr.append(frPr)
     ft=OxmlElement("w:t")
-    ft.text=(f"CONFIDENTIAL  ·  {org_name}  ·  Protiviti India Member Firm  ·  "
-             f"Data Privacy Team  ·  {datetime.now().strftime('%B %Y')}")
+    ft.text=(f"CONFIDENTIAL · {org_name} · Protiviti India Member Firm · "
+             f"Data Privacy Team · {datetime.now().strftime('%B %Y')}")
     ft.set(XML_SPC,"preserve"); fr.append(ft); fp.append(fr)
     fe.append(fp)
 
@@ -505,8 +505,6 @@ def add_cover(doc, org_name, sector):
     _pPr_sp.append(_sp_el)
     srun(p1,"PRE-SCOPING PRIVACY QUESTIONNAIRE",bold=True,size=17,color=C_WHITE)
     p2=cell_new_para_auto(cell); p2.alignment=WD_ALIGN_PARAGRAPH.CENTER
-    srun(p2,f"Prepared for: {org_name}  ·  {sector}  ·  {datetime.now().strftime('%B %Y')}",
-         size=FONT_SZ-1,color="B0C4DE")
     g=doc.add_paragraph(); no_space(g); g.paragraph_format.space_after=Pt(4)
 
 # ═══════════════════════════════════════════════════════════
