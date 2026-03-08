@@ -166,10 +166,7 @@ if not st.session_state.key:
 with st.sidebar:
     st.markdown("## 🛡️ PrivacyScope AI")
     st.markdown("*Pre-Scoping Questionnaire Generator*")
-    st.markdown("<span class='badge'>✓ Free · Groq · Works in India</span>",
-                unsafe_allow_html=True)
     st.divider()
-
     inp = st.text_input("🔑 Groq API Key", type="password",
                         value=st.session_state.key, placeholder="gsk_...",
                         help="Free from console.groq.com")
