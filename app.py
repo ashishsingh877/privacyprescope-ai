@@ -370,8 +370,6 @@ elif st.session_state.phase == "done":
 
     # Options preview
     st.markdown("### 📋 AI-Generated Options Preview")
-    st.caption("These are the ☐ checkbox options that will appear in your Word document — fully empty for the client to fill")
-
     colA, colB = st.columns(2)
 
     def render_card(col, title, key):
