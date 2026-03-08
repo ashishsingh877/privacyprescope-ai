@@ -164,8 +164,10 @@ def no_space(para):
     pPr = _pPr(para)
     for old in pPr.findall(qn("w:spacing")): pPr.remove(old)
     sp = OxmlElement("w:spacing")
-    sp.set(qn("w:before"),"0"); sp.set(qn("w:after"),"0")
-    sp.set(qn("w:line"), str(int(FONT_SZ*20*1.15))); sp.set(qn("w:lineRule"),"auto")
+    sp.set(qn("w:before"),  "0")
+    sp.set(qn("w:after"),   "0")
+    sp.set(qn("w:line"),    "240")
+    sp.set(qn("w:lineRule"),"exact")
     pPr.append(sp)
 
 def _rPr(run):
@@ -195,7 +197,10 @@ def cell_new_para(cell):
     p = OxmlElement("w:p")
     pPr = OxmlElement("w:pPr")
     sp = OxmlElement("w:spacing")
-    sp.set(qn("w:before"),"0"); sp.set(qn("w:after"),"0")
+    sp.set(qn("w:before"),  "0")
+    sp.set(qn("w:after"),   "0")
+    sp.set(qn("w:line"),    "240")
+    sp.set(qn("w:lineRule"),"exact")
     pPr.append(sp); p.append(pPr)
     cell._tc.append(p)
     from docx.text.paragraph import Paragraph
@@ -205,7 +210,10 @@ def blank(cell):
     p = OxmlElement("w:p")
     pPr = OxmlElement("w:pPr")
     sp = OxmlElement("w:spacing")
-    sp.set(qn("w:before"),"0"); sp.set(qn("w:after"),"0")
+    sp.set(qn("w:before"),  "0")
+    sp.set(qn("w:after"),   "0")
+    sp.set(qn("w:line"),    "120")
+    sp.set(qn("w:lineRule"),"exact")
     pPr.append(sp); p.append(pPr); cell._tc.append(p)
 
 # ═══════════════════════════════════════════════════════════
