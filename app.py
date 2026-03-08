@@ -338,10 +338,6 @@ elif st.session_state.phase == "done":
         <div>
           <div style='font-size:18px;font-weight:700;color:#F1F5F9'>{org}</div>
           <div style='font-size:12px;color:#64748B;margin-top:4px'>
-            {ai.get('sector','—')} &nbsp;·&nbsp;
-            {len(ai.get('business_lines',[]))} business lines &nbsp;·&nbsp;
-            {len(ai.get('core_systems',[]))} IT systems &nbsp;·&nbsp;
-            All checkboxes empty — ready to send to client
           </div>
         </div>
       </div>
