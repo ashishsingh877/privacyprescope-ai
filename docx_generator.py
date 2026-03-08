@@ -323,49 +323,47 @@ def sec_hdr(doc, title, icon=""):
 # Response builders
 # ═══════════════════════════════════════════════════════════
 def r_yn(cell):
-    chk_line(cell,"Yes"); blank(cell); chk_line(cell,"No"); blank(cell)
+    chk_line(cell,"Yes"); chk_line(cell,"No")
     note(cell,"If Yes, please specify:"); field(cell,"",34)
 
 def r_emp(cell):
     for o in ["< 500","500 – 1,000","1,000 – 5,000"]:
-        chk_line(cell,o); blank(cell)
+        chk_line(cell,o)
     chk_line(cell,"> 5,000"); field(cell,"  If > 5,000, specify: ",18)
 
 def r_gov(cell):
     for o in ["Yes, centralised global office","Yes, regional offices",
               "No, decisions taken by IT / Legal / Other","No formal structure"]:
-        chk_line(cell,o); blank(cell)
+        chk_line(cell,o)
     note(cell,"Please elaborate:"); field(cell,"",34)
 
 def r_dec(cell):
     for o in ["Privacy Office","Legal & Compliance","IT Security","Business Unit Heads"]:
-        chk_line(cell,o); blank(cell)
+        chk_line(cell,o)
     chk_line(cell,"Other"); field(cell,"  Specify: ",24)
 
 def r_pol(short):
     def f(cell):
         for o in ["Existing framework in place (requires update)",
                   "Drafted but not implemented","Needs to be formulated from scratch"]:
-            chk_line(cell,o); blank(cell)
+            chk_line(cell,o)
         chk_line(cell,"Other"); field(cell,"  Specify: ",24)
     return f
 
 def r_opts(options, elaborate=False, other=True):
     def f(cell):
-        first=True
         for o in options:
-            if not first: blank(cell)
-            chk_line(cell,o); first=False
-        if other: blank(cell); chk_line(cell,"Other"); field(cell,"  Specify: ",24)
-        if elaborate: blank(cell); note(cell,"Please elaborate:"); field(cell,"",34)
+            chk_line(cell,o)
+        if other: chk_line(cell,"Other"); field(cell,"  Specify: ",24)
+        if elaborate: note(cell,"Please elaborate:"); field(cell,"",34)
     return f
 
 def r_disc(cell):
-    chk_line(cell,"Yes"); blank(cell); chk_line(cell,"No"); blank(cell)
+    chk_line(cell,"Yes"); chk_line(cell,"No")
     note(cell,"If Yes, please specify tool:"); field(cell,"",34)
 
 def r_stor(cell):
-    for o in ["On-premise","Cloud","Hybrid"]: chk_line(cell,o); blank(cell)
+    for o in ["On-premise","Cloud","Hybrid"]: chk_line(cell,o)
     chk_line(cell,"Other"); field(cell,"  Specify: ",24)
 
 # ═══════════════════════════════════════════════════════════
