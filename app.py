@@ -407,10 +407,6 @@ elif st.session_state.phase == "done":
       <div style='font-size:16px;font-weight:700;color:#F1F5F9;margin-bottom:6px'>
         Professional Word Document Ready
       </div>
-      <div style='font-size:12px;color:#94A3B8;margin-bottom:16px'>
-        Aptos 11pt · Clickable checkboxes · Dark navy headers · Alternating rows ·
-        Header &amp; footer · Confidentiality notice
-      </div>
     </div>
     """, unsafe_allow_html=True)
 
