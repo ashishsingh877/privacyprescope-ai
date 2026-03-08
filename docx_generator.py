@@ -161,6 +161,18 @@ def _pPr(para):
     return pr
 
 def no_space(para):
+    """Zero before/after spacing. Uses auto line so text is never clipped."""
+    pPr = _pPr(para)
+    for old in pPr.findall(qn("w:spacing")): pPr.remove(old)
+    sp = OxmlElement("w:spacing")
+    sp.set(qn("w:before"),  "0")
+    sp.set(qn("w:after"),   "0")
+    sp.set(qn("w:line"),    "240")
+    sp.set(qn("w:lineRule"),"auto")
+    pPr.append(sp)
+
+def tight_space(para):
+    """Exact single-line spacing — use ONLY for checkbox option lines."""
     pPr = _pPr(para)
     for old in pPr.findall(qn("w:spacing")): pPr.remove(old)
     sp = OxmlElement("w:spacing")
@@ -201,6 +213,20 @@ def cell_new_para(cell):
     sp.set(qn("w:after"),   "0")
     sp.set(qn("w:line"),    "240")
     sp.set(qn("w:lineRule"),"exact")
+    pPr.append(sp); p.append(pPr)
+    cell._tc.append(p)
+    from docx.text.paragraph import Paragraph
+    return Paragraph(p, cell)
+
+def cell_new_para_auto(cell):
+    """Paragraph with auto line height — for italic notes & cover text."""
+    p = OxmlElement("w:p")
+    pPr = OxmlElement("w:pPr")
+    sp = OxmlElement("w:spacing")
+    sp.set(qn("w:before"),  "0")
+    sp.set(qn("w:after"),   "0")
+    sp.set(qn("w:line"),    "240")
+    sp.set(qn("w:lineRule"),"auto")
     pPr.append(sp); p.append(pPr)
     cell._tc.append(p)
     from docx.text.paragraph import Paragraph
@@ -257,11 +283,11 @@ def chk_line(cell, label, italic=False):
     _set_font(_rPr(run), FONT)
 
 def note(cell, text):
-    p = cell_new_para(cell); no_space(p)
+    p = cell_new_para_auto(cell)
     srun(p, text, italic=True, color=C_TEXT_MID, size=FONT_SZ-1)
 
 def field(cell, label="", w=32):
-    p = cell_new_para(cell); no_space(p)
+    p = cell_new_para_auto(cell)
     srun(p, label+"_"*w, italic=True, color=C_TEXT_MID, size=FONT_SZ-1)
 
 # ═══════════════════════════════════════════════════════════
@@ -469,9 +495,16 @@ def add_cover(doc, org_name, sector):
     cell_shade(cell,C_DARK_NAVY); cell_w(cell,TOTAL)
     cell_margins(cell,220,220,200,200); row_h(tbl.rows[0],60)
     cell_bottom_border(cell, C_GOLD)
-    p1=cell.paragraphs[0]; p1.alignment=WD_ALIGN_PARAGRAPH.CENTER; no_space(p1)
+    p1=cell.paragraphs[0]; p1.alignment=WD_ALIGN_PARAGRAPH.CENTER
+    # No tight spacing on title — 17pt needs room to breathe
+    _pPr_sp = _pPr(p1)
+    for _o in _pPr_sp.findall(qn("w:spacing")): _pPr_sp.remove(_o)
+    _sp_el = OxmlElement("w:spacing")
+    _sp_el.set(qn("w:before"),"60"); _sp_el.set(qn("w:after"),"40")
+    _sp_el.set(qn("w:line"),"360"); _sp_el.set(qn("w:lineRule"),"auto")
+    _pPr_sp.append(_sp_el)
     srun(p1,"PRE-SCOPING PRIVACY QUESTIONNAIRE",bold=True,size=17,color=C_WHITE)
-    p2=cell_new_para(cell); p2.alignment=WD_ALIGN_PARAGRAPH.CENTER; no_space(p2)
+    p2=cell_new_para_auto(cell); p2.alignment=WD_ALIGN_PARAGRAPH.CENTER
     srun(p2,f"Prepared for: {org_name}  ·  {sector}  ·  {datetime.now().strftime('%B %Y')}",
          size=FONT_SZ-1,color="B0C4DE")
     g=doc.add_paragraph(); no_space(g); g.paragraph_format.space_after=Pt(4)
