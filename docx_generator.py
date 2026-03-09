@@ -440,7 +440,7 @@ def add_hdr_ftr(doc, org_name):
 
     p.append(make_run("PROTIVITI INDIA MEMBER FIRM | Data Privacy Team", bold=True))
     rt=OxmlElement("w:r"); tt=OxmlElement("w:tab"); rt.append(tt); p.append(rt)
-    p.append(make_run(f"Pre-Scoping Privacy Questionnaire | {org_name}", color="B0C4DE"))
+    p.append(make_run(f"Pre-Scoping Privacy Questionnaire | {org_name}", bold=True))
     he.append(p)
 
     # ── Footer ───────────────────────────────────────────────
