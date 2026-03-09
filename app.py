@@ -65,7 +65,7 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif;}
                  color:white!important;border:none!important;border-radius:8px!important;
                  font-weight:600!important;letter-spacing:0.02em!important;}
 .stButton>button:hover{opacity:.92!important;transform:translateY(-1px)!important;}
-/* Input fields — always white bg with dark text, works in light AND dark mode */
+/* Input fields — always white bg + dark text, visible in both light & dark mode */
 .stTextInput>div>div>input,
 .stTextInput>div>div>input:focus,
 .stTextInput>div>div>input:active,
@@ -179,10 +179,6 @@ if not st.session_state.key:
 with st.sidebar:
     st.markdown("## 🛡️ PrivacyScope AI")
     st.markdown("*Pre-Scoping Questionnaire Generator*")
-    st.markdown("<span class='badge'>✓ Free · Groq · Works in India</span>",
-                unsafe_allow_html=True)
-    st.divider()
-
     inp = st.text_input("🔑 Groq API Key", type="password",
                         value=st.session_state.key, placeholder="gsk_...",
                         help="Free from console.groq.com")
@@ -224,11 +220,7 @@ with st.sidebar:
 if st.session_state.phase == "landing":
 
     st.markdown("""
-    <div class='hero'>
-      <div style='font-size:44px;margin-bottom:10px'>🛡️</div>
-      <h1 style='color:#F1F5F9;font-size:30px;font-weight:800;margin:0 0 8px;letter-spacing:-0.5px'>
-        PrivacyScope AI
-      </h1>
+    """, unsafe_allow_html=True)
 
     c1, c2, c3, c4 = st.columns(4)
     for col, icon, num, lbl in zip([c1,c2,c3,c4],
@@ -358,6 +350,8 @@ elif st.session_state.phase == "done":
         <span style='font-size:36px'>✅</span>
         <div>
           <div style='font-size:18px;font-weight:700;color:#F1F5F9'>{org}</div>
+          <div style='font-size:12px;color:#64748B;margin-top:4px'>
+          </div>
         </div>
       </div>
     </div>
@@ -385,7 +379,6 @@ elif st.session_state.phase == "done":
 
     # Options preview
     st.markdown("### 📋 AI-Generated Options Preview")
-
     colA, colB = st.columns(2)
 
     def render_card(col, title, key):
