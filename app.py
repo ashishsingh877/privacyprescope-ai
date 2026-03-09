@@ -65,10 +65,32 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif;}
                  color:white!important;border:none!important;border-radius:8px!important;
                  font-weight:600!important;letter-spacing:0.02em!important;}
 .stButton>button:hover{opacity:.92!important;transform:translateY(-1px)!important;}
-.stTextInput>div>div>input{background:rgba(255,255,255,0.06)!important;
-    border:1px solid rgba(255,255,255,0.12)!important;border-radius:8px!important;
-    color:#F1F5F9!important;font-size:14px!important;}
-.stTextInput label{color:#94A3B8!important;font-size:12px!important;font-weight:500!important;}
+/* Input fields — visible in BOTH light and dark mode */
+.stTextInput>div>div>input{
+    border-radius:8px!important;
+    font-size:14px!important;
+    color:#1A202C!important;          /* always dark text so it's readable on any bg */
+    caret-color:#2E75B6!important;    /* cursor visible too */
+}
+/* Dark-mode only: subtle tinted background */
+@media(prefers-color-scheme:dark){
+  .stTextInput>div>div>input{
+    background:rgba(255,255,255,0.06)!important;
+    border:1px solid rgba(255,255,255,0.12)!important;
+    color:#F1F5F9!important;
+    caret-color:#60A5FA!important;
+  }
+  .stTextInput label{color:#94A3B8!important;}
+}
+/* Light-mode: clean white input with visible dark text */
+@media(prefers-color-scheme:light){
+  .stTextInput>div>div>input{
+    background:#FFFFFF!important;
+    border:1px solid #CBD5E1!important;
+    color:#1A202C!important;
+  }
+  .stTextInput label{color:#475569!important;}
+}
 hr{border-color:rgba(255,255,255,0.07)!important;}
 h1,h2,h3{color:#F1F5F9!important;}
 </style>
@@ -166,6 +188,10 @@ if not st.session_state.key:
 with st.sidebar:
     st.markdown("## 🛡️ PrivacyScope AI")
     st.markdown("*Pre-Scoping Questionnaire Generator*")
+    st.markdown("<span class='badge'>✓ Free · Groq · Works in India</span>",
+                unsafe_allow_html=True)
+    st.divider()
+
     inp = st.text_input("🔑 Groq API Key", type="password",
                         value=st.session_state.key, placeholder="gsk_...",
                         help="Free from console.groq.com")
@@ -207,6 +233,19 @@ with st.sidebar:
 if st.session_state.phase == "landing":
 
     st.markdown("""
+    <div class='hero'>
+      <div style='font-size:44px;margin-bottom:10px'>🛡️</div>
+      <h1 style='color:#F1F5F9;font-size:30px;font-weight:800;margin:0 0 8px;letter-spacing:-0.5px'>
+        PrivacyScope AI
+      </h1>
+      <p style='color:#94A3B8;font-size:14px;margin:0 0 14px;line-height:1.6'>
+        Enter an organisation name → AI identifies sector-specific options →<br>
+        Download a <b style='color:#F1F5F9'>professional Word document</b>
+        with clickable checkboxes, Aptos font &amp; Protiviti branding
+      </p>
+      <span class='badge'>✓ Free · Groq (Llama 3.3)</span>&nbsp;&nbsp;
+      <span class='badge-blue'>✓ Clickable Checkboxes · Aptos 11pt · Professional Template</span>
+    </div>
     """, unsafe_allow_html=True)
 
     c1, c2, c3, c4 = st.columns(4)
@@ -338,6 +377,10 @@ elif st.session_state.phase == "done":
         <div>
           <div style='font-size:18px;font-weight:700;color:#F1F5F9'>{org}</div>
           <div style='font-size:12px;color:#64748B;margin-top:4px'>
+            {ai.get('sector','—')} &nbsp;·&nbsp;
+            {len(ai.get('business_lines',[]))} business lines &nbsp;·&nbsp;
+            {len(ai.get('core_systems',[]))} IT systems &nbsp;·&nbsp;
+            All checkboxes empty — ready to send to client
           </div>
         </div>
       </div>
@@ -366,6 +409,8 @@ elif st.session_state.phase == "done":
 
     # Options preview
     st.markdown("### 📋 AI-Generated Options Preview")
+    st.caption("These are the ☐ checkbox options that will appear in your Word document — fully empty for the client to fill")
+
     colA, colB = st.columns(2)
 
     def render_card(col, title, key):
@@ -396,6 +441,10 @@ elif st.session_state.phase == "done":
       <div style='font-size:22px;margin-bottom:8px'>📄</div>
       <div style='font-size:16px;font-weight:700;color:#F1F5F9;margin-bottom:6px'>
         Professional Word Document Ready
+      </div>
+      <div style='font-size:12px;color:#94A3B8;margin-bottom:16px'>
+        Aptos 11pt · Clickable checkboxes · Dark navy headers · Alternating rows ·
+        Header &amp; footer · Confidentiality notice
       </div>
     </div>
     """, unsafe_allow_html=True)
