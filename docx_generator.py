@@ -27,7 +27,7 @@ C_TEXT_MID   = "4A5568"
 C_GOLD       = "C8973A"
 C_BORDER     = "B8CCE4"
 FONT         = "Aptos"
-FONT_SZ      = 11
+FONT_SZ      = 10
 W14          = "http://schemas.microsoft.com/office/word/2010/wordml"
 XML_SPC      = "{http://www.w3.org/XML/1998/namespace}space"
 _CB          = [1000]
@@ -89,6 +89,14 @@ def tbl_borders(tbl, color=C_BORDER):
         b.set(qn("w:space"),"0");   b.set(qn("w:color"), color.lstrip("#"))
         bdr.append(b)
     pr.append(bdr)
+
+def tbl_clear_style(tbl):
+    """Remove table style + look overrides so cell shading is never overridden."""
+    pr = _tblPr_raw(_tbl_lxml(tbl))
+    for old in pr.findall(qn("w:tblStyle")): pr.remove(old)
+    st = OxmlElement("w:tblStyle"); st.set(qn("w:val"), "TableNormal"); pr.insert(0, st)
+    for old in pr.findall(qn("w:tblLook")): pr.remove(old)
+    lk = OxmlElement("w:tblLook"); lk.set(qn("w:val"), "0000"); pr.append(lk)
 
 # ─── cell helpers ─────────────────────────────────────────
 def _tcPr(cell):
@@ -303,9 +311,10 @@ SN=500; ATT=4200; RSP=4588; TOTAL=SN+ATT+RSP  # 9288
 
 def make_table(doc):
     t = doc.add_table(rows=1, cols=3)
-    tbl_align_center(t)          # pure XML, no .alignment
+    tbl_align_center(t)
     tbl_width(t, TOTAL)
     tbl_borders(t, C_BORDER)
+    tbl_clear_style(t)
     # Column header row
     for cell, lbl, w, al in zip(
         t.rows[0].cells,
@@ -350,6 +359,7 @@ def sec_hdr(doc, title, icon=""):
     tbl_align_center(tbl)
     tbl_width(tbl, TOTAL)
     tbl_borders(tbl, C_DARK_NAVY)
+    tbl_clear_style(tbl)
     cell = tbl.rows[0].cells[0]
     cell_shade(cell, C_DARK_NAVY); cell_w(cell, TOTAL)
     cell_margins(cell,100,100,160,100); row_h(tbl.rows[0],22)
@@ -419,11 +429,10 @@ def add_hdr_ftr(doc, org_name):
 
     p = OxmlElement("w:p")
     pPr = OxmlElement("w:pPr")
+    # Center-justify the header text
+    jc_el = OxmlElement("w:jc"); jc_el.set(qn("w:val"), "center"); pPr.append(jc_el)
     sp = OxmlElement("w:spacing"); sp.set(qn("w:before"),"80"); sp.set(qn("w:after"),"80")
     pPr.append(sp)
-    tabs = OxmlElement("w:tabs")
-    tab  = OxmlElement("w:tab"); tab.set(qn("w:val"),"right"); tab.set(qn("w:pos"),str(TOTAL))
-    tabs.append(tab); pPr.append(tabs)
     pBdr = OxmlElement("w:pBdr")
     bot  = OxmlElement("w:bottom"); bot.set(qn("w:val"),"single"); bot.set(qn("w:sz"),"6")
     bot.set(qn("w:space"),"1"); bot.set(qn("w:color"),C_GOLD.lstrip("#"))
@@ -433,27 +442,24 @@ def add_hdr_ftr(doc, org_name):
     p.append(pPr)
 
     def hdr_run(text, color="FFFFFF", size=14):
-        """size in half-points: 14 = 7pt"""
         r = OxmlElement("w:r")
         rPr = OxmlElement("w:rPr")
         rf = OxmlElement("w:rFonts")
         rf.set(qn("w:ascii"), FONT); rf.set(qn("w:hAnsi"), FONT)
         rPr.append(rf)
-        b = OxmlElement("w:b"); rPr.append(b)   # bold
-        sz = OxmlElement("w:sz");  sz.set(qn("w:val"), str(size));  rPr.append(sz)
+        b = OxmlElement("w:b"); rPr.append(b)
+        sz = OxmlElement("w:sz"); sz.set(qn("w:val"), str(size)); rPr.append(sz)
         cl = OxmlElement("w:color"); cl.set(qn("w:val"), color); rPr.append(cl)
         r.append(rPr)
         t = OxmlElement("w:t"); t.text = text; t.set(XML_SPC, "preserve")
         r.append(t)
         return r
 
-    # Left: firm name | team  — always short, fits easily
-    p.append(hdr_run("PROTIVITI INDIA MEMBER FIRM  |  Data Privacy Team"))
-    # Tab to right side
-    rt = OxmlElement("w:r"); tt = OxmlElement("w:tab"); rt.append(tt); p.append(rt)
-    # Right: "Pre-Scoping Questionnaire  |  <short org>" — keep under 35 chars total
-    short_org = org_name if len(org_name) <= 18 else org_name[:16] + "…"
-    p.append(hdr_run(f"Pre-Scoping Questionnaire  |  {short_org}"))
+    # Single centered line: FIRM  |  Team  |  Pre-Scoping Questionnaire
+    short_org = org_name if len(org_name) <= 22 else org_name[:20] + "…"
+    p.append(hdr_run(
+        f"PROTIVITI INDIA MEMBER FIRM  |  Data Privacy Team  |  Pre-Scoping Questionnaire  |  {short_org}"
+    ))
     he.append(p)
 
     # ── Footer ───────────────────────────────────────────────
@@ -525,6 +531,7 @@ def add_cover(doc, org_name, sector, logo_path=None):
     tbl_align_center(tbl)
     tbl_width(tbl, TOTAL)
     tbl_borders(tbl, C_DARK_NAVY)
+    tbl_clear_style(tbl)
 
     lc = tbl.rows[0].cells[0]
     rc = tbl.rows[0].cells[1]
@@ -548,27 +555,13 @@ def add_cover(doc, org_name, sector, logo_path=None):
     run = lp.add_run()
     run.add_picture(_io.BytesIO(_LOGO_BYTES), width=Inches(1.15))
 
-    lp2 = cell_new_para_auto(lc)
-    lp2.alignment = WD_ALIGN_PARAGRAPH.LEFT
-    _set_para_spacing(lp2, 0, 0, 240)
-    srun(lp2, "India Member Firm  ·  Data Privacy Team", size=7, color="B0C4DE")
+    # Logo only — no extra text below it
 
-    # ── Right: Title + org + date ──
+    # ── Right: Title only ──
     rp = rc.paragraphs[0]
     rp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    _set_para_spacing(rp, 0, 2, 240)
-    srun(rp, "Pre-Scoping Privacy Questionnaire", bold=True, size=11, color=C_WHITE)
-
-    short_on = org_name if len(org_name) <= 38 else org_name[:36] + "…"
-    rp2 = cell_new_para_auto(rc)
-    rp2.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    _set_para_spacing(rp2, 0, 4, 240)
-    srun(rp2, short_on, size=9, color="B0C4DE")
-
-    rp3 = cell_new_para_auto(rc)
-    rp3.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    _set_para_spacing(rp3, 0, 0, 240)
-    srun(rp3, f"{sector}  ·  {datetime.now().strftime('%B %Y')}", size=8, color=C_GOLD)
+    _set_para_spacing(rp, 0, 0, 280)
+    srun(rp, "Pre-Scoping Privacy Questionnaire", bold=True, size=13, color=C_WHITE)
 
     # Small gap after cover
     g = doc.add_paragraph(); no_space(g)
@@ -638,7 +631,7 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
 
     # Completion note
     nt=doc.add_table(1,1)
-    tbl_align_center(nt); tbl_width(nt,TOTAL); tbl_borders(nt,C_GOLD)
+    tbl_align_center(nt); tbl_width(nt,TOTAL); tbl_borders(nt,C_GOLD); tbl_clear_style(nt)
     nc=nt.rows[0].cells[0]; cell_shade(nc,"FFF8E7"); cell_w(nc,TOTAL)
     cell_margins(nc,120,120,180,180)
     np_=nc.paragraphs[0]; np_.alignment=WD_ALIGN_PARAGRAPH.CENTER; no_space(np_)
