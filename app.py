@@ -229,15 +229,6 @@ if st.session_state.phase == "landing":
       <h1 style='color:#F1F5F9;font-size:30px;font-weight:800;margin:0 0 8px;letter-spacing:-0.5px'>
         PrivacyScope AI
       </h1>
-      <p style='color:#94A3B8;font-size:14px;margin:0 0 14px;line-height:1.6'>
-        Enter an organisation name → AI identifies sector-specific options →<br>
-        Download a <b style='color:#F1F5F9'>professional Word document</b>
-        with clickable checkboxes, Aptos font &amp; Protiviti branding
-      </p>
-      <span class='badge'>✓ Free · Groq (Llama 3.3)</span>&nbsp;&nbsp;
-      <span class='badge-blue'>✓ Clickable Checkboxes · Aptos 11pt · Professional Template</span>
-    </div>
-    """, unsafe_allow_html=True)
 
     c1, c2, c3, c4 = st.columns(4)
     for col, icon, num, lbl in zip([c1,c2,c3,c4],
@@ -367,12 +358,6 @@ elif st.session_state.phase == "done":
         <span style='font-size:36px'>✅</span>
         <div>
           <div style='font-size:18px;font-weight:700;color:#F1F5F9'>{org}</div>
-          <div style='font-size:12px;color:#64748B;margin-top:4px'>
-            {ai.get('sector','—')} &nbsp;·&nbsp;
-            {len(ai.get('business_lines',[]))} business lines &nbsp;·&nbsp;
-            {len(ai.get('core_systems',[]))} IT systems &nbsp;·&nbsp;
-            All checkboxes empty — ready to send to client
-          </div>
         </div>
       </div>
     </div>
@@ -400,7 +385,6 @@ elif st.session_state.phase == "done":
 
     # Options preview
     st.markdown("### 📋 AI-Generated Options Preview")
-    st.caption("These are the ☐ checkbox options that will appear in your Word document — fully empty for the client to fill")
 
     colA, colB = st.columns(2)
 
@@ -432,10 +416,6 @@ elif st.session_state.phase == "done":
       <div style='font-size:22px;margin-bottom:8px'>📄</div>
       <div style='font-size:16px;font-weight:700;color:#F1F5F9;margin-bottom:6px'>
         Professional Word Document Ready
-      </div>
-      <div style='font-size:12px;color:#94A3B8;margin-bottom:16px'>
-        Aptos 11pt · Clickable checkboxes · Dark navy headers · Alternating rows ·
-        Header &amp; footer · Confidentiality notice
       </div>
     </div>
     """, unsafe_allow_html=True)
