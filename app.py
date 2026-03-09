@@ -65,32 +65,23 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif;}
                  color:white!important;border:none!important;border-radius:8px!important;
                  font-weight:600!important;letter-spacing:0.02em!important;}
 .stButton>button:hover{opacity:.92!important;transform:translateY(-1px)!important;}
-/* Input fields — visible in BOTH light and dark mode */
-.stTextInput>div>div>input{
+/* Input fields — always white bg with dark text, works in light AND dark mode */
+.stTextInput>div>div>input,
+.stTextInput>div>div>input:focus,
+.stTextInput>div>div>input:active,
+.stTextInput>div>div>input:hover,
+[data-baseweb="input"] input,
+[data-baseweb="base-input"] input {
+    background:#FFFFFF!important;
+    color:#111827!important;
+    -webkit-text-fill-color:#111827!important;
+    border:1.5px solid #CBD5E1!important;
     border-radius:8px!important;
     font-size:14px!important;
-    color:#1A202C!important;          /* always dark text so it's readable on any bg */
-    caret-color:#2E75B6!important;    /* cursor visible too */
+    caret-color:#2E75B6!important;
+    opacity:1!important;
 }
-/* Dark-mode only: subtle tinted background */
-@media(prefers-color-scheme:dark){
-  .stTextInput>div>div>input{
-    background:rgba(255,255,255,0.06)!important;
-    border:1px solid rgba(255,255,255,0.12)!important;
-    color:#F1F5F9!important;
-    caret-color:#60A5FA!important;
-  }
-  .stTextInput label{color:#94A3B8!important;}
-}
-/* Light-mode: clean white input with visible dark text */
-@media(prefers-color-scheme:light){
-  .stTextInput>div>div>input{
-    background:#FFFFFF!important;
-    border:1px solid #CBD5E1!important;
-    color:#1A202C!important;
-  }
-  .stTextInput label{color:#475569!important;}
-}
+.stTextInput label{color:#94A3B8!important;font-size:12px!important;font-weight:500!important;}
 hr{border-color:rgba(255,255,255,0.07)!important;}
 h1,h2,h3{color:#F1F5F9!important;}
 </style>
