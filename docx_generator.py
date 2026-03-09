@@ -458,7 +458,7 @@ def add_hdr_ftr(doc, org_name):
     # Single centered line: FIRM  |  Team  |  Pre-Scoping Questionnaire
     short_org = org_name if len(org_name) <= 22 else org_name[:20] + "…"
     p.append(hdr_run(
-        f"PROTIVITI INDIA MEMBER FIRM  |  Data Privacy Team  |  Pre-Scoping Questionnaire  |  {short_org}"
+        f"PROTIVITI INDIA MEMBER FIRM | Data Privacy Team | Pre-Scoping Questionnaire | {short_org}"
     ))
     he.append(p)
 
@@ -485,8 +485,8 @@ def add_hdr_ftr(doc, org_name):
     fcl=OxmlElement("w:color"); fcl.set(qn("w:val"),C_TEXT_MID.lstrip("#")); frPr.append(fcl)
     fr.append(frPr)
     ft=OxmlElement("w:t")
-    ft.text=(f"CONFIDENTIAL  ·  {org_name}  ·  Protiviti India Member Firm  ·  "
-             f"Data Privacy Team  ·  {datetime.now().strftime('%B %Y')}")
+    ft.text=(f"CONFIDENTIAL · {org_name} · Protiviti India Member Firm · "
+             f"Data Privacy Team · {datetime.now().strftime('%B %Y')}")
     ft.set(XML_SPC,"preserve"); fr.append(ft); fp.append(fr)
     fe.append(fp)
 
