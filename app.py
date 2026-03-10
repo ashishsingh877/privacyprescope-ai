@@ -306,20 +306,7 @@ if st.session_state.phase == "landing":
                     st.error(f"❌ {e}")
 
     with R:
-        st.markdown("### 📄 Document features")
-        st.markdown("""
-        <div class='option-card'>
-        <div style='font-size:13px;color:#94A3B8;line-height:2.2'>
-        ☑️ <b style='color:#F1F5F9'>Clickable checkboxes</b> in Word<br>
-        🔤 <b style='color:#F1F5F9'>Aptos 11pt font</b> throughout<br>
-        🎨 <b style='color:#F1F5F9'>Professional template</b> matching original<br>
-        🏷️ <b style='color:#F1F5F9'>Org name</b> replaced in all questions<br>
-        📊 <b style='color:#F1F5F9'>AI-tailored options</b> per section<br>
-        🔵 <b style='color:#F1F5F9'>Alternating row shading</b><br>
-        📌 <b style='color:#F1F5F9'>Header &amp; footer</b> on every page<br>
-        🔒 <b style='color:#F1F5F9'>Confidential footer</b> with date<br>
-        📝 <b style='color:#F1F5F9'>All fields empty</b> — org fills them
-        </div></div>""", unsafe_allow_html=True)
+        
 
         st.markdown("### 🎯 Example output")
         st.markdown("""
