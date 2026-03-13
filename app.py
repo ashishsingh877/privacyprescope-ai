@@ -8,7 +8,7 @@ from docx_generator import generate_questionnaire_docx
 
 # ─── Page Config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="ProtiScope",
+    page_title="PrivacyScope AI",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -166,7 +166,7 @@ def get_ai_options(org: str, site: str, key: str) -> dict:
 
 
 # ─── Session state ────────────────────────────────────────────────────────────
-for k, v in {"phase": "landing", "ai": None, "org": "", "site": "", "key": ""}.items():
+for k, v in {"phase": "landing", "ai": None, "org": "", "site": "", "key": "", "form_id": 0}.items():
     if k not in st.session_state:
         st.session_state[k] = v
 
@@ -178,7 +178,7 @@ if not st.session_state.key:
 
 # ─── SIDEBAR ──────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## 🛡️ ProtiScope")
+    st.markdown("## 🛡️ PrivacyScope AI")
     st.markdown("*Pre-Scoping Questionnaire Generator*")
     # API key is stored securely in Streamlit Secrets — no UI input required
     if st.session_state.key:
@@ -200,7 +200,7 @@ with st.sidebar:
         </div>""", unsafe_allow_html=True)
         st.divider()
         if st.button("🔄 New Questionnaire", use_container_width=True):
-            st.session_state.update({"phase":"landing","ai":None,"org":"","site":""})
+            st.session_state.update({"phase":"landing","ai":None,"org":"","site":"","form_id": st.session_state.form_id + 1})
             st.rerun()
 
 
@@ -228,11 +228,12 @@ if st.session_state.phase == "landing":
 
     with L:
         st.markdown("### 🏢 Organisation Details")
+        fid = st.session_state.form_id
         org  = st.text_input("Organisation Name *", placeholder="e.g. Infosys Limited / HDFC Bank",
-                             value=st.session_state.org)
+                             value=st.session_state.org, key=f"org_{fid}")
         site = st.text_input("Company Website (recommended)",
                              placeholder="e.g. https://www.infosys.com",
-                             value=st.session_state.site)
+                             value=st.session_state.site, key=f"site_{fid}")
 
         go = st.button("⚡  Generate Tailored Questionnaire",
                        use_container_width=True, type="primary")
@@ -292,6 +293,20 @@ if st.session_state.phase == "landing":
                     st.error(f"❌ {e}")
 
     with R:
+        st.markdown("### 📄 Document features")
+        st.markdown("""
+        <div class='option-card'>
+        <div style='font-size:13px;color:#94A3B8;line-height:2.2'>
+        ☑️ <b style='color:#F1F5F9'>Clickable checkboxes</b> in Word<br>
+        🔤 <b style='color:#F1F5F9'>Aptos 11pt font</b> throughout<br>
+        🎨 <b style='color:#F1F5F9'>Professional template</b> matching original<br>
+        🏷️ <b style='color:#F1F5F9'>Org name</b> replaced in all questions<br>
+        📊 <b style='color:#F1F5F9'>AI-tailored options</b> per section<br>
+        🔵 <b style='color:#F1F5F9'>Alternating row shading</b><br>
+        📌 <b style='color:#F1F5F9'>Header &amp; footer</b> on every page<br>
+        🔒 <b style='color:#F1F5F9'>Confidential footer</b> with date<br>
+        📝 <b style='color:#F1F5F9'>All fields empty</b> — org fills them
+        </div></div>""", unsafe_allow_html=True)
 
         st.markdown("### 🎯 Example output")
         st.markdown("""
@@ -401,5 +416,5 @@ elif st.session_state.phase == "done":
     _, mid2, _ = st.columns([2, 1, 2])
     with mid2:
         if st.button("🔄 New Organisation", use_container_width=True):
-            st.session_state.update({"phase": "landing", "ai": None})
+            st.session_state.update({"phase": "landing", "ai": None, "org": "", "site": "", "form_id": st.session_state.form_id + 1})
             st.rerun()
