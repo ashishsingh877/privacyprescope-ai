@@ -178,7 +178,7 @@ if not st.session_state.key:
 
 # ─── SIDEBAR ──────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## 🛡️ PrivacyScope AI")
+    st.markdown("## 🛡️ ProtiScope")
     st.markdown("*Pre-Scoping Questionnaire Generator*")
     # API key is stored securely in Streamlit Secrets — no UI input required
     if st.session_state.key:
