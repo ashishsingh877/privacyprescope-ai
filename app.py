@@ -8,7 +8,7 @@ from docx_generator import generate_questionnaire_docx
 
 # ─── Page Config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="PrivacyScope AI",
+    page_title="ProtiScope",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -178,7 +178,7 @@ if not st.session_state.key:
 
 # ─── SIDEBAR ──────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## 🛡️ PrivacyScope AI")
+    st.markdown("## 🛡️ ProtiScope AI")
     st.markdown("*Pre-Scoping Questionnaire Generator*")
     # API key is stored securely in Streamlit Secrets — no UI input required
     if st.session_state.key:
