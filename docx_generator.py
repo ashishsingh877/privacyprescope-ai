@@ -291,6 +291,14 @@ def chk_line(cell, label, italic=False):
     para = cell_new_para(cell)
     para.alignment = WD_ALIGN_PARAGRAPH.LEFT
     no_space(para)
+    # Hanging indent: wrapped text aligns under text start, not checkbox
+    pPr = para._p.find(qn("w:pPr"))
+    if pPr is None:
+        pPr = OxmlElement("w:pPr"); para._p.insert(0, pPr)
+    ind = OxmlElement("w:ind")
+    ind.set(qn("w:left"),    "220")   # wrapped lines start here (in twips)
+    ind.set(qn("w:hanging"), "220")   # checkbox line pulled back by same amount
+    pPr.append(ind)
     para._p.append(_checkbox())
     run = para.add_run("  " + label)
     run.font.name=FONT; run.font.size=Pt(FONT_SZ); run.italic=italic
@@ -458,7 +466,7 @@ def add_hdr_ftr(doc, org_name):
     # Single centered line: FIRM  |  Team  |  Pre-Scoping Questionnaire
     short_org = org_name if len(org_name) <= 22 else org_name[:20] + "…"
     p.append(hdr_run(
-        f"PROTIVITI INDIA MEMBER FIRM | Data Privacy Team | Pre-Scoping Questionnaire | {short_org}"
+        f"PROTIVITI INDIA MEMBER FIRM  |  Data Privacy Team  |  Pre-Scoping Questionnaire  |  {short_org}"
     ))
     he.append(p)
 
@@ -485,8 +493,8 @@ def add_hdr_ftr(doc, org_name):
     fcl=OxmlElement("w:color"); fcl.set(qn("w:val"),C_TEXT_MID.lstrip("#")); frPr.append(fcl)
     fr.append(frPr)
     ft=OxmlElement("w:t")
-    ft.text=(f"CONFIDENTIAL · {org_name} · Protiviti India Member Firm · "
-             f"Data Privacy Team · {datetime.now().strftime('%B %Y')}")
+    ft.text=(f"CONFIDENTIAL  ·  {org_name}  ·  Protiviti India Member Firm  ·  "
+             f"Data Privacy Team  ·  {datetime.now().strftime('%B %Y')}")
     ft.set(XML_SPC,"preserve"); fr.append(ft); fp.append(fr)
     fe.append(fp)
 
