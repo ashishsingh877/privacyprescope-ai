@@ -170,6 +170,7 @@ for k, v in {"phase": "landing", "ai": None, "org": "", "site": "", "key": ""}.i
     if k not in st.session_state:
         st.session_state[k] = v
 
+# Load key from Streamlit Secrets only — no UI input needed
 if not st.session_state.key:
     try:    st.session_state.key = st.secrets.get("GROQ_API_KEY", "")
     except: st.session_state.key = os.environ.get("GROQ_API_KEY", "")
@@ -179,26 +180,13 @@ if not st.session_state.key:
 with st.sidebar:
     st.markdown("## 🛡️ PrivacyScope AI")
     st.markdown("*Pre-Scoping Questionnaire Generator*")
-    inp = st.text_input("🔑 Groq API Key", type="password",
-                        value=st.session_state.key, placeholder="gsk_...",
-                        help="Free from console.groq.com")
-    if inp:
-        st.session_state.key = inp
-
+    # API key is stored securely in Streamlit Secrets — no UI input required
     if st.session_state.key:
-        st.markdown("<div class='key-ok'>✅ API key connected — ready to generate</div>",
+        st.markdown("<div class='key-ok'>✅ AI connected — ready to generate</div>",
                     unsafe_allow_html=True)
     else:
-        st.markdown("""
-        <div class='key-box'>
-        <b style='color:#10B981'>Get FREE key (2 min):</b><br>
-        1. Go to <b>console.groq.com</b><br>
-        2. Sign up with Google / email<br>
-        3. API Keys → <b>Create API Key</b><br>
-        4. Copy key (starts <b>gsk_</b>)<br>
-        5. Paste above ⬆️<br><br>
-        ✅ No credit card · Works in India
-        </div>""", unsafe_allow_html=True)
+        st.markdown("<div class='key-box'>⚠️ AI service not configured.<br>Contact the app administrator.</div>",
+                    unsafe_allow_html=True)
 
     if st.session_state.phase == "done" and st.session_state.ai:
         st.divider()
@@ -245,8 +233,6 @@ if st.session_state.phase == "landing":
         site = st.text_input("Company Website (recommended)",
                              placeholder="e.g. https://www.infosys.com",
                              value=st.session_state.site)
-        if not st.session_state.key:
-            st.warning("⚠️ Please enter your Groq API key in the sidebar.")
 
         go = st.button("⚡  Generate Tailored Questionnaire",
                        use_container_width=True, type="primary")
@@ -255,7 +241,7 @@ if st.session_state.phase == "landing":
             if not org.strip():
                 st.error("Please enter the organisation name.")
             elif not st.session_state.key:
-                st.error("Please enter your Groq API key in the sidebar.")
+                st.error("❌ AI service not configured. Please contact the app administrator.")
             else:
                 st.session_state.org  = org
                 st.session_state.site = site
@@ -306,7 +292,20 @@ if st.session_state.phase == "landing":
                     st.error(f"❌ {e}")
 
     with R:
-        
+        st.markdown("### 📄 Document features")
+        st.markdown("""
+        <div class='option-card'>
+        <div style='font-size:13px;color:#94A3B8;line-height:2.2'>
+        ☑️ <b style='color:#F1F5F9'>Clickable checkboxes</b> in Word<br>
+        🔤 <b style='color:#F1F5F9'>Aptos 11pt font</b> throughout<br>
+        🎨 <b style='color:#F1F5F9'>Professional template</b> matching original<br>
+        🏷️ <b style='color:#F1F5F9'>Org name</b> replaced in all questions<br>
+        📊 <b style='color:#F1F5F9'>AI-tailored options</b> per section<br>
+        🔵 <b style='color:#F1F5F9'>Alternating row shading</b><br>
+        📌 <b style='color:#F1F5F9'>Header &amp; footer</b> on every page<br>
+        🔒 <b style='color:#F1F5F9'>Confidential footer</b> with date<br>
+        📝 <b style='color:#F1F5F9'>All fields empty</b> — org fills them
+        </div></div>""", unsafe_allow_html=True)
 
         st.markdown("### 🎯 Example output")
         st.markdown("""
