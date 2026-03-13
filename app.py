@@ -8,7 +8,7 @@ from docx_generator import generate_questionnaire_docx
 
 # ─── Page Config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="PrivacyScope AI",
+    page_title="ProtiScope",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="expanded",
