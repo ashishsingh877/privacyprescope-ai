@@ -610,7 +610,7 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     sec_hdr(doc,"Business Lines & Stakeholders","📊")
     t3=make_table(doc)
     q_row(t3,1,f"Which of the following are {short}'s core business lines?",r_opts(ai.get("business_lines",[]),elaborate=True))
-    q_row(t3,2,"Which internal teams or function heads are key stakeholders for processing personal data?",r_opts(ai.get("stakeholder_teams",[])),tint=True)
+    q_row(t3,2,"Which of these internal teams may potentially process personal data?",r_opts(ai.get("stakeholder_teams",[])),tint=True)
     doc.add_paragraph()
 
     # Section 4
@@ -628,6 +628,13 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     q_row(t5,1,f"Which categories of individuals (\"Data Subjects\") does {short} process personal data for?",r_opts(ai.get("data_subjects",[]),elaborate=True))
     q_row(t5,2,f"What types of personal data does {short} collect, store, or process as part of its operations?",r_opts(ai.get("data_types",[])),tint=True)
     doc.add_paragraph()
+    
+    # Section 6
+    sec_hdr(doc,"Cross Border Data Transfer","🏢")
+    t6=make_table(doc)
+    q_row(t6,1,"Does any personal data processed by the organization get transferred or accessed from outside India? If yes, please specify the countries, entities involved, and purpose of transfer.",r_yn)
+    doc.add_paragraph()
+
 
     # Completion note
     nt=doc.add_table(1,1)
