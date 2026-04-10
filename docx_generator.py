@@ -394,21 +394,21 @@ def r_gov(cell):
 def r_dec(cell):
     for o in ["Privacy Office","Legal & Compliance","IT Security","Business Unit Heads"]:
         chk_line(cell,o)
-    chk_line(cell,"Other"); field(cell,"  Specify: ",24)
+    chk_line(cell,"Other(please specify):"); field(cell,"  Specify: ",24)
 
 def r_pol(short):
     def f(cell):
         for o in ["Existing framework in place (requires update)",
                   "Drafted but not implemented","Needs to be formulated from scratch"]:
             chk_line(cell,o)
-        chk_line(cell,"Other"); field(cell,"  Specify: ",24)
+        chk_line(cell,"Other(please specify):"); field(cell,"  Specify: ",24)
     return f
 
 def r_opts(options, elaborate=False, other=True):
     def f(cell):
         for o in options:
             chk_line(cell,o)
-        if other: chk_line(cell,"Other"); field(cell,"  Specify: ",24)
+        if other: chk_line(cell,"Other(please specify):"); field(cell,"  Specify: ",24)
         if elaborate: note(cell,"Please elaborate:"); field(cell,"",34)
     return f
 
@@ -417,8 +417,8 @@ def r_disc(cell):
     note(cell,"If Yes, please specify tool:"); field(cell,"",34)
 
 def r_stor(cell):
-    for o in ["On-premise","Cloud","Hybrid"]: chk_line(cell,o)
-    chk_line(cell,"Other"); field(cell,"  Specify: ",24)
+    for o in ["On-premise","Cloud","Hybrid(On-premise + Cloud)"]: chk_line(cell,o)
+    chk_line(cell,"Other(please specify):"); field(cell,"  Specify: ",24)
 
 # ═══════════════════════════════════════════════════════════
 # Header & Footer — pure XML paragraph, no table in header
@@ -598,7 +598,7 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     sec_hdr(doc,"Organisational Overview","🏢")
     t1=make_table(doc)
     q_row(t1,1,"Are there any subsidiaries, affiliates, or joint ventures to be included in this engagement?",r_yn)
-    q_row(t1,2,"If your response is Yes to the above — confirm if there are a centralized Cybersecurity/IT, HR and Legal team responsible for supporting all business functions?",r_yn,tint=True)
+    q_row(t1,2,"If your response above is “Yes”, please confirm whether the above mentioned entities have centralized Cybersecurity/IT, HR and Legal functions in place to support all business functions?",r_yn,tint=True)
     q_row(t1,3,"What is the approximate employee strength?",r_emp1)
     doc.add_paragraph()
 
@@ -606,7 +606,7 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     sec_hdr(doc,"Governance & Accountability","⚖️")
     t2=make_table(doc)
     q_row(t2,1,"Has a Privacy Governance Committee or Privacy Office been set up?",r_gov)
-    q_row(t2,2,"If your response is No to the above — confirm who takes decisions on personal data usage?",r_dec,tint=True)
+    q_row(t2,2,"If your response to the above is “No”, please confirm who takes decisions on the use of personal or its related decision making?",r_dec,tint=True)
     q_row(t2,3,f"What is the current status of {short}'s privacy policy framework?",r_pol(short))
     doc.add_paragraph()
 
@@ -621,8 +621,8 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     sec_hdr(doc,"Data Ecosystem","🖥️")
     t4=make_table(doc)
     q_row(t4,1,f"List all customer-facing interfaces used by {short}.",r_opts(ai.get("customer_interfaces",[]),elaborate=True))
-    q_row(t4,2,"Which core systems / applications handle personal data?",r_opts(ai.get("core_systems",[])),tint=True)
-    q_row(t4,3,"Do you use any data discovery or mapping tools internally?",r_disc)
+    q_row(t4,2,"List all core systems / applications that process, store or manage personal data?",r_opts(ai.get("core_systems",[])),tint=True)
+    q_row(t4,3,"Do you use any tools to identify, map or track personal data across systems?(E.g.,data discovery, data flow mapping, etc.) ",r_disc)
     q_row(t4,4,"Where is personal data stored and hosted?",r_stor,tint=True)
     doc.add_paragraph()
     
