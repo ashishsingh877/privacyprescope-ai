@@ -121,7 +121,7 @@ RULES:
 - business_lines: 4-6 SPECIFIC to this exact company/sector
 - stakeholder_teams: 5-7 teams, always include HR, IT, Legal
 - customer_interfaces: 4-6 channels this org type uses
-- core_systems: 5-8 systems specific to this sector (e.g. Finacle for banks, SAP for manufacturing)
+- core_systems: 5-8 systems specific to this sector (Always have HRMS,CRM,ERP)
 - data_subjects: 5-7 categories specific to this org's operations
 - data_types: 6-8 types with descriptions in brackets where helpful
 - Return ONLY raw JSON, nothing else"""
