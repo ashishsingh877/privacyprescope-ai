@@ -634,8 +634,8 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
 
      # Section 6
     sec_hdr(doc,"ADDITIONAL DATA","🏢")
-    t5=make_table(doc)
-    q_row(t6,1,"When do you plan to initiate the engagement? Please provide a tentative start date.",r_emp1)
+    t7=make_table(doc)
+    q_row(t6,1,"When do you plan to initiate the engagement? Please provide a tentative start date.",r_emp)
     doc.add_paragraph()
 
 
