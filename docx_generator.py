@@ -377,6 +377,10 @@ def r_yn(cell):
     note(cell,"If Yes, please specify:"); field(cell,"",34)
 
 def r_emp(cell):
+    for o in ["Immediate (within 1–2 weeks)","Short-term (within 1 month)","Medium-term (1–3 months)","Long-term (>3 months)","Tentative date:","Not yet decided"]:
+        chk_line(cell,o)
+    
+def r_emp1(cell):
     for o in ["< 500","500 – 1,000","1,000 – 5,000"]:
         chk_line(cell,o)
     chk_line(cell,"> 5,000"); field(cell,"  If > 5,000, specify: ",18)
@@ -621,18 +625,17 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     q_row(t4,3,"Do you use any data discovery or mapping tools internally?",r_disc)
     q_row(t4,4,"Where is personal data stored and hosted?",r_stor,tint=True)
     doc.add_paragraph()
-
-    # Section 5
-    sec_hdr(doc,"Data Subjects & Data Types","👥")
-    t5=make_table(doc)
-    q_row(t5,1,f"Which categories of individuals (\"Data Subjects\") does {short} process personal data for?",r_opts(ai.get("data_subjects",[]),elaborate=True))
-    q_row(t5,2,f"What types of personal data does {short} collect, store, or process as part of its operations?",r_opts(ai.get("data_types",[])),tint=True)
-    doc.add_paragraph()
     
-    # Section 6
+    # Section 5
     sec_hdr(doc,"Cross Border Data Transfer","🏢")
     t6=make_table(doc)
     q_row(t6,1,"Does any personal data processed by the organization get transferred or accessed from outside India? If yes, please specify the countries, entities involved, and purpose of transfer.",r_yn)
+    doc.add_paragraph()
+
+     # Section 6
+    sec_hdr(doc,"ADDITIONAL DATA","🏢")
+    t5=make_table(doc)
+    q_row(t6,1,"When do you plan to initiate the engagement? Please provide a tentative start date.",r_emp1)
     doc.add_paragraph()
 
 
