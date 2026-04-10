@@ -599,7 +599,7 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     t1=make_table(doc)
     q_row(t1,1,"Are there any subsidiaries, affiliates, or joint ventures to be included in this engagement?",r_yn)
     q_row(t1,2,"If your response is Yes to the above — confirm if there are a centralized Cybersecurity/IT, HR and Legal team responsible for supporting all business functions?",r_yn,tint=True)
-    q_row(t1,3,"What is the approximate employee strength?",r_emp)
+    q_row(t1,3,"What is the approximate employee strength?",r_emp1)
     doc.add_paragraph()
 
     # Section 2
