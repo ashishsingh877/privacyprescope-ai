@@ -552,12 +552,12 @@ def add_cover(doc, org_name, sector, logo_path=None):
     cell_bottom_border(lc, C_GOLD, sz="12")
     cell_bottom_border(rc, C_GOLD, sz="12")
 
-    # ── Left: Logo image ──
+    ''' ── Left: Logo image ──
     lp = lc.paragraphs[0]
     lp.alignment = WD_ALIGN_PARAGRAPH.LEFT
     _set_para_spacing(lp, 0, 6, 240)
     run = lp.add_run()
-    run.add_picture(_io.BytesIO(_LOGO_BYTES), width=Inches(1.15))
+    run.add_picture(_io.BytesIO(_LOGO_BYTES), width=Inches(1.15))'''
 
     # Logo only — no extra text below it
 
