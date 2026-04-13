@@ -520,7 +520,7 @@ def _set_para_spacing(para, before, after, line, rule="auto"):
     sp.set(qn("w:lineRule"),rule)
     pPr.append(sp)
 
-'''def add_cover(doc, org_name, sector, logo_path=None):
+def add_cover(doc, org_name, sector, logo_path=None):
     """
     Compact 2-col cover: left = Protiviti logo + tagline, right = title + org + date.
     Row height auto-fits content — no oversized box.
@@ -546,7 +546,7 @@ def _set_para_spacing(para, before, after, line, rule="auto"):
         cell_valign(cell, "center")
 
     cell_margins(lc, top=120, bottom=120, left=160, right=80)
-    cell_margins(rc, top=120, bottom=120, left=80, right=160) '''
+    cell_margins(rc, top=120, bottom=120, left=80, right=160) 
 
     # Gold bottom stripe on both cells
     cell_bottom_border(lc, C_GOLD, sz="12")
