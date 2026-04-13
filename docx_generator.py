@@ -546,18 +546,18 @@ def _set_para_spacing(para, before, after, line, rule="auto"):
         cell_valign(cell, "center")
 
     cell_margins(lc, top=120, bottom=120, left=160, right=80)
-    cell_margins(rc, top=120, bottom=120, left=80, right=160)'''
+    cell_margins(rc, top=120, bottom=120, left=80, right=160) '''
 
     # Gold bottom stripe on both cells
     cell_bottom_border(lc, C_GOLD, sz="12")
     cell_bottom_border(rc, C_GOLD, sz="12")
 
     # ── Left: Logo image ──
-    ''' lp = lc.paragraphs[0]
+    lp = lc.paragraphs[0]
     lp.alignment = WD_ALIGN_PARAGRAPH.LEFT
     _set_para_spacing(lp, 0, 6, 240)
     run = lp.add_run()
-    run.add_picture(_io.BytesIO(_LOGO_BYTES), width=Inches(1.15))''' 
+    run.add_picture(_io.BytesIO(_LOGO_BYTES), width=Inches(1.15))
 
     # Logo only — no extra text below it
 
