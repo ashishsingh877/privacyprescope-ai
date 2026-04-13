@@ -389,7 +389,7 @@ def r_gov(cell):
     for o in ["Yes, centralised global office","Yes, regional offices",
               "No, decisions taken by IT / Legal / Other","No formal structure"]:
         chk_line(cell,o)
-    note(cell,"Please elaborate:"); field(cell,"",34)
+    note(cell,"Specify:"); field(cell,"",34)
 
 def r_dec(cell):
     for o in ["Privacy Office","Legal & Compliance","IT Security","Business Unit Heads"]:
@@ -409,7 +409,7 @@ def r_opts(options, elaborate=False, other=True):
         for o in options:
             chk_line(cell,o)
         if other: chk_line(cell,"Other(please specify):"); field(cell,"  Specify: ",24)
-        if elaborate: note(cell,"Please elaborate:"); field(cell,"",34)
+        #if elaborate: note(cell,"Please elaborate:"); field(cell,"",34)
     return f
 
 def r_disc(cell):
@@ -645,7 +645,7 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     nc=nt.rows[0].cells[0]; cell_shade(nc,"FFF8E7"); cell_w(nc,TOTAL)
     cell_margins(nc,120,120,180,180)
     np_=nc.paragraphs[0]; np_.alignment=WD_ALIGN_PARAGRAPH.CENTER; no_space(np_)
-    srun(np_,"Please complete all sections and return to the Protiviti Data Privacy Team. All information will be treated as strictly confidential.",italic=True,size=FONT_SZ-1,color="7A5C00")
+    srun(np_,"Please complete all sections and return to the Data Privacy Team. All information will be treated as strictly confidential.",italic=True,size=FONT_SZ-1,color="7A5C00")
 
     buf=io.BytesIO(); doc.save(buf); buf.seek(0)
     return buf.getvalue()
