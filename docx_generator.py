@@ -590,7 +590,7 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     sty.font.name=FONT; sty.font.size=Pt(FONT_SZ)
     sty.paragraph_format.space_before=Pt(0); sty.paragraph_format.space_after=Pt(3)
 
-    add_hdr_ftr(doc, org_name)
+    # add_hdr_ftr(doc, org_name)
     add_page_border(doc)
     add_cover(doc, org_name, sector, logo_path=ai.get("logo_path"))
 
