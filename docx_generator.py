@@ -377,7 +377,7 @@ def r_yn(cell):
     note(cell,"If Yes, please specify:"); field(cell,"",34)
 
 def r_emp(cell):
-    for o in ["Immediate (within 1–2 weeks)","Short-term (within 1 month)","Medium-term (1–3 months)","Long-term (>3 months)","Tentative date (Please specify) - _____________","Not yet decided"]:
+    for o in ["Immediate (within 1–2 weeks)","Short-term (within 1 month)","Medium-term (1–3 months)","Long-term (>3 months)","Tentative date (Please specify) - _________","Not yet decided"]:
         chk_line(cell,o)
     
 def r_emp1(cell):
