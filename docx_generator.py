@@ -394,21 +394,21 @@ def r_gov(cell):
 def r_dec(cell):
     for o in ["Privacy Office","Legal & Compliance","IT Security","Business Unit Heads"]:
         chk_line(cell,o)
-    chk_line(cell,"Other (Please specify) - ___________________"); field(cell,"  Specify: ",24)
+    chk_line(cell,"Other (Please specify) - ___________________"); # field(cell,"  Specify: ",24)
 
 def r_pol(short):
     def f(cell):
         for o in ["Existing framework in place (requires update)",
                   "Drafted but not implemented","Needs to be formulated from scratch"]:
             chk_line(cell,o)
-        chk_line(cell,"Other (Please specify) - ___________________"); field(cell,"  Specify: ",24)
+        chk_line(cell,"Other (Please specify) - ___________________"); # field(cell,"  Specify: ",24)
     return f
 
 def r_opts(options, elaborate=False, other=True):
     def f(cell):
         for o in options:
             chk_line(cell,o)
-        if other: chk_line(cell,"Other (Please specify) - ___________________"); field(cell,"  Specify: ",24)
+        if other: chk_line(cell,"Other (Please specify) - ___________________"); # field(cell,"  Specify: ",24)
         #if elaborate: note(cell,"Please elaborate:"); field(cell,"",34)
     return f
 
@@ -418,7 +418,7 @@ def r_disc(cell):
 
 def r_stor(cell):
     for o in ["On-premise","Cloud","Hybrid(On-premise + Cloud)"]: chk_line(cell,o)
-    chk_line(cell,"Other (Please specify) - ___________________"); field(cell,"  Specify: ",24)
+    chk_line(cell,"Other (Please specify) - ___________________"); #field(cell,"  Specify: ",24)
 
 # ═══════════════════════════════════════════════════════════
 # Header & Footer — pure XML paragraph, no table in header
