@@ -394,21 +394,21 @@ def r_gov(cell):
 def r_dec(cell):
     for o in ["Privacy Office","Legal & Compliance","IT Security","Business Unit Heads"]:
         chk_line(cell,o)
-    chk_line(cell,"Other(please specify):"); field(cell,"  Specify: ",24)
+    chk_line(cell,"Other (Please specify) - ___________________"); field(cell,"  Specify: ",24)
 
 def r_pol(short):
     def f(cell):
         for o in ["Existing framework in place (requires update)",
                   "Drafted but not implemented","Needs to be formulated from scratch"]:
             chk_line(cell,o)
-        chk_line(cell,"Other(please specify):"); field(cell,"  Specify: ",24)
+        chk_line(cell,"Other (Please specify) - ___________________"); field(cell,"  Specify: ",24)
     return f
 
 def r_opts(options, elaborate=False, other=True):
     def f(cell):
         for o in options:
             chk_line(cell,o)
-        if other: chk_line(cell,"Other(please specify):"); field(cell,"  Specify: ",24)
+        if other: chk_line(cell,"Other (Please specify) - ___________________"); field(cell,"  Specify: ",24)
         #if elaborate: note(cell,"Please elaborate:"); field(cell,"",34)
     return f
 
@@ -418,7 +418,7 @@ def r_disc(cell):
 
 def r_stor(cell):
     for o in ["On-premise","Cloud","Hybrid(On-premise + Cloud)"]: chk_line(cell,o)
-    chk_line(cell,"Other(please specify):"); field(cell,"  Specify: ",24)
+    chk_line(cell,"Other (Please specify) - ___________________"); field(cell,"  Specify: ",24)
 
 # ═══════════════════════════════════════════════════════════
 # Header & Footer — pure XML paragraph, no table in header
@@ -622,7 +622,7 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     t4=make_table(doc)
     q_row(t4,1,f"List all customer-facing interfaces used by {short}.",r_opts(ai.get("customer_interfaces",[]),elaborate=True))
     q_row(t4,2,"List all core systems / applications that process, store or manage personal data?",r_opts(ai.get("core_systems",[])),tint=True)
-    q_row(t4,3,"Do you use any tools to identify, map or track personal data across systems?(E.g.,data discovery, data flow mapping, etc.) ",r_disc)
+    q_row(t4,3,"Do you use any tools to identify, map or track personal data across systems? (E.g., data discovery, data flow mapping, etc.)",r_disc)
     q_row(t4,4,"Where is personal data stored and hosted?",r_stor,tint=True)
     doc.add_paragraph()
     
