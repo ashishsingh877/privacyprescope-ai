@@ -14,7 +14,7 @@ from lxml import etree
 
 # ── Embedded Protiviti logo (base64 PNG, white on transparent) ────────────────
 import base64 as _b64
-_LOGO_B64 = "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"
+_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAMgAAAA8CAIAAACsOWLGAAAAsklEQVR4nO3SQQkAMAzAwPo3vaoIg3KnII/Mg8D8DuAmY5EwFgljkTAWCWORMBYJY5EwFgljkTAWCWORMBYJY5EwFgljkTAWCWORMBYJY5EwFgljkTAWCWORMBYJY5EwFgljkTAWCWORMBYJY5EwFgljkTAWCWORMBYJY5EwFgljkTAWCWORMBYJY5EwFgljkTAWCWORMBYJY5EwFgljkTAWCWORMBYJY5EwFgljkTAWiQVQTRuVTsRiFQAAAABJRU5ErkJggg=="
 _LOGO_BYTES = _b64.b64decode(_LOGO_B64)
 
 C_DARK_NAVY  = "1F3864"
@@ -305,87 +305,62 @@ def field(cell, label="", w=32):
     srun(p, label+"_"*w, italic=True, color=C_TEXT_MID, size=FONT_SZ-1)
 
 # ═══════════════════════════════════════════════════════════
-# Non-editable image helper
+# NON-EDITABLE LOGO — wrapped in a locked content control
 # ═══════════════════════════════════════════════════════════
-def add_locked_picture_to_cell(cell, image_bytes, width_inches,
-                                align=WD_ALIGN_PARAGRAPH.LEFT,
-                                space_before=0, space_after=6):
-    """
-    Insert an image into *cell* inside a locked SDT content control so that
-    the logo cannot be edited, deleted, or replaced in Word.
 
-    Mechanism
-    ---------
-    A <w:sdt> block with <w:lock w:val="sdtContentLocked"/> wraps the
-    paragraph that contains the picture run.  Word's UI then shows the
-    content as read-only (the cursor skips over it; right-click has no
-    edit option for that element).
-
-    Parameters
-    ----------
-    cell         : python-docx _Cell
-    image_bytes  : raw PNG/JPEG bytes
-    width_inches : rendered width in inches
-    align        : paragraph alignment (default LEFT)
-    space_before : twips before paragraph (default 0)
-    space_after  : twips after paragraph  (default 6)
+def add_locked_logo(para, img_bytes, width_inches=1.15):
     """
-    import io as _io
+    Insert the logo image wrapped inside a Word Structured Document Tag (SDT)
+    with both sdtLocked (can't delete the control) and contentLocked (can't
+    edit/replace the content inside).  The user can still *view* the image but
+    cannot click-select, resize, delete or swap it in Word.
+    """
     from docx.shared import Inches
-    from docx.text.paragraph import Paragraph as _Para
+    import io as _io
 
-    # ── 1. Build the picture paragraph inside a throw-away container ─────────
-    #    We let python-docx handle the image relationship registration via the
-    #    cell's parent document part, then lift the raw <w:p> out.
-    lp = cell.paragraphs[0]           # use the initial empty paragraph
-    lp.alignment = align
+    # 1. Add the picture via a temporary run so python-docx generates the
+    #    full <w:drawing> XML including all relationship IDs.
+    temp_run = para.add_run()
+    temp_run.add_picture(_io.BytesIO(img_bytes), width=Inches(width_inches))
+    r_elem = temp_run._r          # grab the raw lxml <w:r> element
+    para._p.remove(r_elem)        # detach it — we'll re-attach inside the SDT
 
-    # Set paragraph spacing directly on the underlying XML (no helper needed)
-    p_elem = lp._p
-    pPr = p_elem.find(qn("w:pPr"))
-    if pPr is None:
-        pPr = OxmlElement("w:pPr"); p_elem.insert(0, pPr)
-    for old in pPr.findall(qn("w:spacing")): pPr.remove(old)
-    sp_xml = OxmlElement("w:spacing")
-    sp_xml.set(qn("w:before"), str(space_before))
-    sp_xml.set(qn("w:after"),  str(space_after))
-    sp_xml.set(qn("w:line"),   "240")
-    sp_xml.set(qn("w:lineRule"), "auto")
-    pPr.append(sp_xml)
-
-    # Add the picture run (python-docx registers the image relationship here)
-    run = lp.add_run()
-    run.add_picture(_io.BytesIO(image_bytes), width=Inches(width_inches))
-
-    # ── 2. Detach <w:p> from the cell so we can re-parent it inside the SDT ──
-    tc = cell._tc
-    tc.remove(p_elem)
-
-    # ── 3. Build <w:sdt> with sdtContentLocked ───────────────────────────────
-    #
-    #   <w:sdt>
-    #     <w:sdtPr>
-    #       <w:lock w:val="sdtContentLocked"/>   ← prevents editing in Word
-    #     </w:sdtPr>
-    #     <w:sdtContent>
-    #       <w:p> … picture run … </w:p>
-    #     </w:sdtContent>
-    #   </w:sdt>
-    #
+    # 2. Build the locked SDT wrapper.
     sdt = OxmlElement("w:sdt")
 
+    # --- sdtPr: properties that lock the control --------------------------
     sdtPr = OxmlElement("w:sdtPr")
-    lock  = OxmlElement("w:lock")
-    lock.set(qn("w:val"), "sdtContentLocked")   # ← the critical attribute
+
+    # Human-readable tag so it's easy to identify in the XML
+    tag = OxmlElement("w:tag")
+    tag.set(qn("w:val"), "protiviti_logo_locked")
+    sdtPr.append(tag)
+
+    # Unique ID for this SDT
+    sdt_id = OxmlElement("w:id")
+    sdt_id.set(qn("w:val"), "9001")
+    sdtPr.append(sdt_id)
+
+    # Lock both the control itself AND its content:
+    #   sdtLocked     → the SDT wrapper cannot be deleted
+    #   contentLocked → the image inside cannot be edited / replaced
+    lock = OxmlElement("w:lock")
+    lock.set(qn("w:val"), "sdtContentLocked")   # combines both locks
     sdtPr.append(lock)
+
+    # Declare this as a picture content control (best practice for images)
+    pic_ctrl = OxmlElement("w:picture")
+    sdtPr.append(pic_ctrl)
+
     sdt.append(sdtPr)
 
-    sdtContent = OxmlElement("w:sdtContent")
-    sdtContent.append(p_elem)       # picture paragraph lives here
-    sdt.append(sdtContent)
+    # --- sdtContent: holds the actual image run ---------------------------
+    sdt_content = OxmlElement("w:sdtContent")
+    sdt_content.append(r_elem)   # re-attach the <w:r><w:drawing>…</w:drawing></w:r>
+    sdt.append(sdt_content)
 
-    # ── 4. Insert the SDT at position 0 in the table cell ────────────────────
-    tc.insert(0, sdt)
+    # 3. Insert the finished SDT into the paragraph.
+    para._p.append(sdt)
 
 
 # ═══════════════════════════════════════════════════════════
@@ -454,56 +429,6 @@ def sec_hdr(doc, title, icon=""):
     g = doc.add_paragraph(); no_space(g); g.paragraph_format.space_after=Pt(2)
 
 # ═══════════════════════════════════════════════════════════
-# Response builders
-# ═══════════════════════════════════════════════════════════
-def r_yn(cell):
-    chk_line(cell,"Yes"); chk_line(cell,"No")
-    note(cell,"If Yes, please specify:"); field(cell,"",34)
-
-def r_emp(cell):
-    for o in ["Immediate (within 1–2 weeks)","Short-term (within 1 month)","Medium-term (1–3 months)","Long-term (>3 months)","Tentative date (Please specify) - _________","Not yet decided"]:
-        chk_line(cell,o)
-    
-def r_emp1(cell):
-    for o in ["< 500","500 – 1,000","1,000 – 5,000"]:
-        chk_line(cell,o)
-    chk_line(cell,"> 5,000"); field(cell,"  If > 5,000, specify: ",18)
-
-def r_gov(cell):
-    for o in ["Yes, centralised global office","Yes, regional offices",
-              "No, decisions taken by IT / Legal / Other","No formal structure"]:
-        chk_line(cell,o)
-    note(cell,"Specify:"); field(cell,"",34)
-
-def r_dec(cell):
-    for o in ["Privacy Office","Legal & Compliance","IT Security","Business Unit Heads"]:
-        chk_line(cell,o)
-    chk_line(cell,"Other (Please specify) - ___________________")
-
-def r_pol(short):
-    def f(cell):
-        for o in ["Existing framework in place (requires update)",
-                  "Drafted but not implemented","Needs to be formulated from scratch"]:
-            chk_line(cell,o)
-        chk_line(cell,"Other (Please specify) - ___________________")
-    return f
-
-def r_opts(options, elaborate=False, other=True):
-    def f(cell):
-        for o in options:
-            chk_line(cell,o)
-        if other: chk_line(cell,"Other (Please specify) - ___________________")
-    return f
-
-def r_disc(cell):
-    chk_line(cell,"Yes"); chk_line(cell,"No")
-    note(cell,"If Yes, please specify tool:"); field(cell,"",34)
-
-def r_stor(cell):
-    for o in ["On-premise","Cloud","Hybrid(On-premise + Cloud)"]: chk_line(cell,o)
-    chk_line(cell,"Other (Please specify) - ___________________")
-
-# ═══════════════════════════════════════════════════════════
 # Page border
 # ═══════════════════════════════════════════════════════════
 def add_page_border(doc):
@@ -560,31 +485,71 @@ def add_cover(doc, org_name, sector, logo_path=None):
     cell_bottom_border(lc, C_GOLD, sz="12")
     cell_bottom_border(rc, C_GOLD, sz="12")
 
-    # ── Left: Protiviti logo — LOCKED (non-editable) ──────────────────────────
-    #
-    #   add_locked_picture_to_cell() wraps the image paragraph inside a
-    #   <w:sdt> with <w:lock w:val="sdtContentLocked"/>.
-    #   In Word, users cannot click into, resize, or delete the logo;
-    #   the cursor simply skips over the content control.
-    #
-    add_locked_picture_to_cell(
-        cell        = lc,
-        image_bytes = _LOGO_BYTES,
-        width_inches= 1.15,
-        align       = WD_ALIGN_PARAGRAPH.LEFT,
-        space_before= 0,
-        space_after = 0,
-    )
+    # ── Left cell: Protiviti logo — NON-EDITABLE via locked SDT ──────────
+    lp = lc.paragraphs[0]
+    lp.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    _set_para_spacing(lp, 0, 6, 240)
+    add_locked_logo(lp, _LOGO_BYTES, width_inches=1.15)
 
-    # ── Right: Title ──────────────────────────────────────────────────────────
+    # ── Right cell: Title only ────────────────────────────────────────────
     rp = rc.paragraphs[0]
-    rp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    rp.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     _set_para_spacing(rp, 0, 0, 280)
-    srun(rp, "Pre-Scoping Privacy Questionnaire", bold=True, size=13, color=C_WHITE)
+    srun(rp, "Pre-Scoping Privacy Questionnaire", bold=True, size=18, color=C_WHITE)
 
     # Small gap after cover
     g = doc.add_paragraph(); no_space(g)
     g.paragraph_format.space_after = Pt(6)
+
+# ═══════════════════════════════════════════════════════════
+# Response builders
+# ═══════════════════════════════════════════════════════════
+def r_yn(cell):
+    chk_line(cell,"Yes"); chk_line(cell,"No")
+    note(cell,"If Yes, please specify:"); field(cell,"",34)
+
+def r_emp(cell):
+    for o in ["Immediate (within 1–2 weeks)","Short-term (within 1 month)","Medium-term (1–3 months)","Long-term (>3 months)","Tentative date (Please specify) - _____________","Not yet decided"]:
+        chk_line(cell,o)
+
+def r_emp1(cell):
+    for o in ["< 500","500 – 1,000","1,000 – 5,000"]:
+        chk_line(cell,o)
+    chk_line(cell,"> 5,000"); field(cell,"  If > 5,000, specify: ",18)
+
+def r_gov(cell):
+    for o in ["Yes, centralised global office","Yes, regional offices",
+              "No, decisions taken by IT / Legal / Other","No formal structure"]:
+        chk_line(cell,o)
+    note(cell,"Specify:"); field(cell,"",34)
+
+def r_dec(cell):
+    for o in ["Privacy Office","Legal & Compliance","IT Security","Business Unit Heads"]:
+        chk_line(cell,o)
+    chk_line(cell,"Other (Please specify) - ___________________")
+
+def r_pol(short):
+    def f(cell):
+        for o in ["Existing framework in place (requires update)",
+                  "Drafted but not implemented","Needs to be formulated from scratch"]:
+            chk_line(cell,o)
+        chk_line(cell,"Other (Please specify) - ___________________")
+    return f
+
+def r_opts(options, elaborate=False, other=True):
+    def f(cell):
+        for o in options:
+            chk_line(cell,o)
+        if other: chk_line(cell,"Other (Please specify) - ___________________")
+    return f
+
+def r_disc(cell):
+    chk_line(cell,"Yes"); chk_line(cell,"No")
+    note(cell,"If Yes, please specify tool:"); field(cell,"",34)
+
+def r_stor(cell):
+    for o in ["On-premise","Cloud","Hybrid(On-premise + Cloud)"]: chk_line(cell,o)
+    chk_line(cell,"Other (Please specify) - ___________________")
 
 # ═══════════════════════════════════════════════════════════
 # Main export function
@@ -612,7 +577,7 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     sec_hdr(doc,"Organisational Overview","🏢")
     t1=make_table(doc)
     q_row(t1,1,"Are there any subsidiaries, affiliates, or joint ventures to be included in this engagement?",r_yn)
-    q_row(t1,2,"If your response above is "Yes", please confirm whether the above mentioned entities have centralized Cybersecurity/IT, HR and Legal functions in place to support all business functions?",r_yn,tint=True)
+    q_row(t1,2,'If your response above is \u201cYes\u201d, please confirm whether the above mentioned entities have centralized Cybersecurity/IT, HR and Legal functions in place to support all business functions?',r_yn,tint=True)
     q_row(t1,3,"What is the approximate employee strength?",r_emp1)
     doc.add_paragraph()
 
@@ -620,7 +585,7 @@ def generate_questionnaire_docx(org_name: str, ai: dict) -> bytes:
     sec_hdr(doc,"Governance & Accountability","⚖️")
     t2=make_table(doc)
     q_row(t2,1,"Has a Privacy Governance Committee or Privacy Office been set up?",r_gov)
-    q_row(t2,2,"If your response to the above is "No", please confirm who takes decisions on the use of personal or its related decision making?",r_dec,tint=True)
+    q_row(t2,2,'If your response to the above is \u201cNo\u201d, please confirm who takes decisions on the use of personal or its related decision making?',r_dec,tint=True)
     q_row(t2,3,f"What is the current status of {short}'s privacy policy framework?",r_pol(short))
     doc.add_paragraph()
 
