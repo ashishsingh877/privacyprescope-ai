@@ -493,9 +493,9 @@ def add_cover(doc, org_name, sector, logo_path=None):
 
     # ── Right cell: Title only ────────────────────────────────────────────
     rp = rc.paragraphs[0]
-    rp.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    rp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     _set_para_spacing(rp, 0, 0, 280)
-    srun(rp, "Pre-Scoping Privacy Questionnaire", bold=True, size=18, color=C_WHITE)
+    srun(rp, "Pre-Scoping Privacy Questionnaire", bold=True, size=13, color=C_WHITE)
 
     # Small gap after cover
     g = doc.add_paragraph(); no_space(g)
