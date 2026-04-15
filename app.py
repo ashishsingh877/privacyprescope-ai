@@ -109,9 +109,9 @@ Return ONLY this JSON:
   "short_name": "Short abbreviation used in documents (e.g. TCS, HDFC, Infosys)",
   "sector": "Primary industry sector",
   "business_lines": ["Line 1", "Line 2", "Line 3", "Line 4", "Line 5"],
-  "stakeholder_teams": ["HR & People Operations", "IT & Cybersecurity", "Legal & Compliance", "Team 4", "Team 5", "Team 6"],
+  "stakeholder_teams": ["HR & People Operations", "IT & Cybersecurity", "Legal & Compliance", "Team 4", "Team 5", "Team 6","Team 7","Team 8","Team 9","Team 10"],
   "customer_interfaces": ["Interface 1", "Interface 2", "Interface 3", "Interface 4", "Interface 5"],
-  "core_systems": ["HRIS (Human Resource Information System)", "CRM (Customer Relationship Management)", "ERP (Enterprise Resource Planning)", "System 4", "System 5", "System 6", "System 7"],
+  "core_systems": ["HRIS (Human Resource Information System)", "CRM (Customer Relationship Management)", "ERP (Enterprise Resource Planning)", "System 4", "System 5", "System 6", "System 7","System 8","System 9","System 10","System 11"],
   "data_subjects": ["Category 1 (detail)", "Category 2", "Category 3", "Category 4", "Category 5", "Category 6"],
   "data_types": ["Identity Data (ID proofs, Aadhaar, PAN)", "Contact & Demographic Data", "Financial Data (salary, transactions)", "Type 4 (detail)", "Type 5", "Type 6", "Type 7"]
 }}
@@ -119,9 +119,9 @@ Return ONLY this JSON:
 RULES:
 - short_name: common abbreviation or first word
 - business_lines: 4-6 SPECIFIC to this exact company/sector
-- stakeholder_teams: 5-7 teams, always include HR, IT, Legal
+- stakeholder_teams: 7-10 teams, always include HR, IT, Legal
 - customer_interfaces: 4-6 channels this org type uses
-- core_systems: 5-8 systems specific to this sector (Always have HRMS,CRM,ERP)
+- core_systems: 8-11 systems specific to this sector (Always have HRMS,CRM,ERP)
 - data_subjects: 5-7 categories specific to this org's operations
 - data_types: 6-8 types with descriptions in brackets where helpful
 - Return ONLY raw JSON, nothing else"""
