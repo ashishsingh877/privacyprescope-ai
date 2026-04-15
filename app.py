@@ -119,7 +119,7 @@ Return ONLY this JSON:
 RULES:
 - short_name: common abbreviation or first word
 - business_lines: 4-6 SPECIFIC to this exact company/sector
-- stakeholder_teams: 7-10 teams, always include HR, IT, Legal
+- stakeholder_teams: 8-10 teams, always include HR, IT, Legal
 - customer_interfaces: 4-6 channels this org type uses
 - core_systems: 8-11 systems specific to this sector (Always have HRMS,CRM,ERP)
 - data_subjects: 5-7 categories specific to this org's operations
